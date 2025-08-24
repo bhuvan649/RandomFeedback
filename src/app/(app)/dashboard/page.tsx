@@ -21,7 +21,6 @@ function UserDashboard() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSwitchLoading, setIsSwitchLoading] = useState(false);
 
-
   const handleDeleteMessage = (messageId: string) => {
     setMessages(messages.filter((message) => message._id !== messageId));
   };
@@ -39,13 +38,12 @@ function UserDashboard() {
     setIsSwitchLoading(true);
     try {
       const response = await axios.get<ApiResponse>('/api/accept-messages');
-      setValue('acceptMessages', response.data.isAcceptingMessages??false);
+      setValue('acceptMessages', response.data.isAcceptingMessages ?? false);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
-      toast('Error',{
-         description: <span className="text-red-500">{ axiosError.response?.data.message ??
+      toast('Error', {
+        description: <span className="text-red-500">{axiosError.response?.data.message ??
           'Failed to fetch message settings'}</span>,
-
       });
     } finally {
       setIsSwitchLoading(false);
@@ -60,14 +58,13 @@ function UserDashboard() {
         const response = await axios.get<ApiResponse>('/api/get-messages');
         setMessages(response.data.messages || []);
         if (refresh) {
-          toast('Refreshed Messages',{
+          toast('Refreshed Messages', {
             description: <span className="text-green-500">{'Showing latest messages'}</span>,
           });
         }
       } catch (error) {
         const axiosError = error as AxiosError<ApiResponse>;
-        toast( 'Error',{
-
+        toast('Error', {
           description: <span className="text-red-500">{axiosError.response?.data.message ?? 'Failed to fetch messages'}</span>,
         });
       } finally {
@@ -78,29 +75,24 @@ function UserDashboard() {
     [setIsLoading, setMessages, toast]
   );
 
-  // Fetch initial state from the server
   useEffect(() => {
     if (!session || !session.user) return;
 
     fetchMessages();
-
     fetchAcceptMessages();
   }, [session, setValue, toast, fetchAcceptMessages, fetchMessages]);
 
-  // Handle switch change
   const handleSwitchChange = async () => {
     try {
       const response = await axios.post<ApiResponse>('/api/accept-messages', {
         acceptMessages: !acceptMessages,
       });
       setValue('acceptMessages', !acceptMessages);
-      toast(`${response.data.message}`,{
-      });
+      toast(`${response.data.message}`);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
-      toast('Error',{
-
-        description: <span className="text-red-500">{axiosError.response?.data.message ??'Failed to update message settings'}</span>,
+      toast('Error', {
+        description: <span className="text-red-500">{axiosError.response?.data.message ?? 'Failed to update message settings'}</span>,
       });
     }
   };
@@ -110,36 +102,43 @@ function UserDashboard() {
   }
 
   const { username } = session.user as User;
-
   const baseUrl = `${window.location.protocol}//${window.location.host}`;
   const profileUrl = `${baseUrl}/u/${username}`;
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(profileUrl);
-    toast('URL Copied!',{
-
+    toast('URL Copied!', {
       description: <span className="text-green-500">{'Profile URL has been copied to clipboard.'}</span>,
     });
   };
 
   return (
-    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
+    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 rounded w-full max-w-6xl
+      bg-white dark:bg-gray-900 
+      text-gray-900 dark:text-gray-100 
+      shadow-md">
+      
       <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
 
+      {/* Copy link */}
       <div className="mb-4">
-        <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>{' '}
+        <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>
         <div className="flex items-center">
           <input
             type="text"
             value={profileUrl}
             disabled
-            className="input input-bordered w-full p-2 mr-2"
+            className="w-full p-2 mr-2 rounded border 
+              border-gray-300 dark:border-gray-700 
+              bg-gray-100 dark:bg-gray-800 
+              text-gray-900 dark:text-gray-100"
           />
           <Button onClick={copyToClipboard}>Copy</Button>
         </div>
       </div>
 
-      <div className="mb-4">
+      {/* Switch */}
+      <div className="mb-4 flex items-center">
         <Switch
           {...register('acceptMessages')}
           checked={acceptMessages}
@@ -150,8 +149,10 @@ function UserDashboard() {
           Accept Messages: {acceptMessages ? 'On' : 'Off'}
         </span>
       </div>
+
       <Separator />
 
+      {/* Refresh */}
       <Button
         className="mt-4"
         variant="outline"
@@ -166,9 +167,11 @@ function UserDashboard() {
           <RefreshCcw className="h-4 w-4" />
         )}
       </Button>
+
+      {/* Messages */}
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
         {messages.length > 0 ? (
-          messages.map((message, index) => (
+          messages.map((message) => (
             <MessageCard
               key={message._id as string}
               message={message}

@@ -1,5 +1,6 @@
 'use client';
 
+
 import React, { useState } from 'react';
 import axios, { AxiosError } from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -68,15 +69,16 @@ export default function SendMessage() {
         username,
       });
 
-      toast(`${response.data.message}`,{
-
-      });
+      toast(`${response.data.message}`);
       form.reset({ ...form.getValues(), content: '' });
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
-      toast('Error',{
-        description: <span className="text-red-500">{axiosError.response?.data.message ?? 'Failed to sent message'}</span>,
-
+      toast('Error', {
+        description: (
+          <span className="text-destructive">
+            {axiosError.response?.data.message ?? 'Failed to send message'}
+          </span>
+        ),
       });
     } finally {
       setIsLoading(false);
@@ -88,12 +90,13 @@ export default function SendMessage() {
       complete('');
     } catch (error) {
       console.error('Error fetching messages:', error);
-      // Handle error appropriately
     }
   };
 
   return (
-    <div className="container mx-auto my-8 p-6 bg-white rounded max-w-4xl">
+    <>
+    
+    <div className="container mx-auto my-8 p-6 rounded max-w-4xl bg-background text-foreground">
       <h1 className="text-4xl font-bold mb-6 text-center">
         Public Profile Link
       </h1>
@@ -148,7 +151,7 @@ export default function SendMessage() {
           </CardHeader>
           <CardContent className="flex flex-col space-y-4">
             {error ? (
-              <p className="text-red-500">{error.message}</p>
+              <p className="text-destructive">{error.message}</p>
             ) : (
               parseStringMessages(completion).map((message, index) => (
                 <Button
@@ -172,5 +175,6 @@ export default function SendMessage() {
         </Link>
       </div>
     </div>
+  </>
   );
 }
