@@ -13,5 +13,40 @@
     "title": "Message from MysteryGuest",
     "content": "Do you have any book recommendations?",
     "received": "1 day ago"
+  },
+  {
+    "title": "Message from OldFriend",
+    "content": "Long time no see! We should catch up soon.",
+    "received": "2 days ago"
+  },
+  {
+    "title": "Message from WorkBuddy",
+    "content": "Are you joining the meeting tomorrow?",
+    "received": "3 days ago"
+  },
+  {
+    "title": "Message from MovieFan",
+    "content": "Have you watched the new film yet? It's amazing.",
+    "received": "4 days ago"
+  },
+  {
+    "title": "Message from Bookworm",
+    "content": "Just finished reading that novel you mentioned. Loved it!",
+    "received": "5 days ago"
+  },
+  {
+    "title": "Message from GamerGuy",
+    "content": "Want to play online tonight?",
+    "received": "6 days ago"
+  },
+  {
+    "title": "Message from Neighbor",
+    "content": "I think you got a package delivered to my door by mistake.",
+    "received": "1 week ago"
+  },
+  {
+    "title": "Message from TravelBuddy",
+    "content": "Any plans for the weekend trip?",
+    "received": "2 weeks ago"
   }
 ]

@@ -18,7 +18,7 @@ function Navbar() {
       href="#"
       className="text-lg md:text-xl font-bold tracking-tight bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent"
     >
-      True Feedback
+      Random Feedback
     </a>
 
     {/* Right side (User actions + ModeToggle) */}
@@ -29,7 +29,7 @@ function Navbar() {
             Welcome, {user.username || user.email}
           </span>
           <Button
-            onClick={() => signOut()}
+            onClick={() => signOut({ callbackUrl: "/" })}
             className="rounded-xl bg-transparent text-foreground border border-border shadow-sm hover:bg-transparent hover:text-foreground transition cursor-pointer"
           >
             Logout

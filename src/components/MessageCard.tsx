@@ -52,8 +52,8 @@ export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
           <CardTitle>{message.content}</CardTitle>
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button variant='destructive'>
-                <X className="w-5 h-5" />
+              <Button className="cursor-pointer" variant='destructive'>
+                <X className="w-5 h-5 " />
               </Button>
             </AlertDialogTrigger>
             <AlertDialogContent>

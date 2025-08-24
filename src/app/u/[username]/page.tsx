@@ -126,7 +126,7 @@ export default function SendMessage() {
                 Please wait
               </Button>
             ) : (
-              <Button type="submit" disabled={isLoading || !messageContent}>
+              <Button className="cursor-pointer" type="submit" disabled={isLoading || !messageContent}>
                 Send It
               </Button>
             )}
@@ -138,7 +138,7 @@ export default function SendMessage() {
         <div className="space-y-2">
           <Button
             onClick={fetchSuggestedMessages}
-            className="my-4"
+            className="my-4 cursor-pointer"
             disabled={isSuggestLoading}
           >
             Suggest Messages
@@ -171,7 +171,7 @@ export default function SendMessage() {
       <div className="text-center">
         <div className="mb-4">Get Your Message Board</div>
         <Link href={'/sign-up'}>
-          <Button>Create Your Account</Button>
+          <Button className='cursor-pointer'>Create Your Account</Button>
         </Link>
       </div>
     </div>

@@ -20,16 +20,17 @@ export default function Home() {
     <BackgroundBeamsWithCollision className="flex-grow flex flex-col items-center justify-center px-6 md:px-24 py-16 bg-background text-foreground transition-colors duration-300">
         <section className="text-center mb-12">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-violet-500 to-pink-500 bg-clip-text text-transparent">
-            Dive into the World of Anonymous Feedback
+            Step into the world of unexpected feedback
           </h1>
           <p className="mt-4 md:mt-6 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-            True Feedback — Where your identity remains a secret.
+            Random Feedback — Where your identity remains a secret.
           </p>
         </section>
 
       {/* Carousel for Messages */}
       <Carousel
-        plugins={[Autoplay({ delay: 2000 })]}
+        plugins={[Autoplay({ delay: 3000 })]}
+        
         className="w-full max-w-lg md:max-w-xl"
       >
         <CarouselContent>
@@ -57,7 +58,7 @@ export default function Home() {
 
     {/* Footer */}
       <footer className="text-center p-6 bg-background border-t border-border/40 text-muted-foreground">
-        © 2025 True Feedback. All rights reserved.
+        © 2025 Random Feedback. All rights reserved.
       </footer>
   </>
 

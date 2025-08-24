@@ -16,6 +16,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AcceptMessageSchema } from '@/schemas/acceptMessageSchema';
 
+
 function UserDashboard() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -42,13 +43,12 @@ function UserDashboard() {
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast('Error', {
-        description: <span className="text-red-500">{axiosError.response?.data.message ??
-          'Failed to fetch message settings'}</span>,
+        description: <span className="text-red-500">{axiosError.response?.data.message ?? 'Failed to fetch message settings'}</span>,
       });
     } finally {
       setIsSwitchLoading(false);
     }
-  }, [setValue, toast]);
+  }, [setValue]);
 
   const fetchMessages = useCallback(
     async (refresh: boolean = false) => {
@@ -59,7 +59,7 @@ function UserDashboard() {
         setMessages(response.data.messages || []);
         if (refresh) {
           toast('Refreshed Messages', {
-            description: <span className="text-green-500">{'Showing latest messages'}</span>,
+            description: <span className="text-green-500">Showing latest messages</span>,
           });
         }
       } catch (error) {
@@ -72,7 +72,7 @@ function UserDashboard() {
         setIsSwitchLoading(false);
       }
     },
-    [setIsLoading, setMessages, toast]
+    []
   );
 
   useEffect(() => {
@@ -80,7 +80,7 @@ function UserDashboard() {
 
     fetchMessages();
     fetchAcceptMessages();
-  }, [session, setValue, toast, fetchAcceptMessages, fetchMessages]);
+  }, [session, fetchAcceptMessages, fetchMessages]);
 
   const handleSwitchChange = async () => {
     try {
@@ -108,81 +108,84 @@ function UserDashboard() {
   const copyToClipboard = () => {
     navigator.clipboard.writeText(profileUrl);
     toast('URL Copied!', {
-      description: <span className="text-green-500">{'Profile URL has been copied to clipboard.'}</span>,
+      description: <span className="text-green-500">Profile URL has been copied to clipboard.</span>,
     });
   };
 
   return (
-    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 rounded w-full max-w-6xl
-      bg-white dark:bg-gray-900 
-      text-gray-900 dark:text-gray-100 
-      shadow-md">
-      
-      <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
 
-      {/* Copy link */}
-      <div className="mb-4">
-        <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>
-        <div className="flex items-center">
-          <input
-            type="text"
-            value={profileUrl}
-            disabled
-            className="w-full p-2 mr-2 rounded border 
-              border-gray-300 dark:border-gray-700 
-              bg-gray-100 dark:bg-gray-800 
-              text-gray-900 dark:text-gray-100"
+      <div className="relative my-8 mx-4 md:mx-8 lg:mx-auto p-6 rounded w-full max-w-6xl
+        bg-white/80 dark:bg-gray-900/80
+        backdrop-blur-md
+        text-gray-900 dark:text-gray-100
+        shadow-md z-10"
+      >
+        <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
+
+        {/* Copy link */}
+        <div className="mb-4">
+          <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>
+          <div className="flex items-center">
+            <input
+              type="text"
+              value={profileUrl}
+              disabled
+              className="w-full p-2 mr-2 rounded border 
+                border-gray-300 dark:border-gray-700 
+                bg-gray-100 dark:bg-gray-800 
+                text-gray-900 dark:text-gray-100"
+            />
+            <Button className="cursor-pointer" onClick={copyToClipboard}>Copy</Button>
+          </div>
+        </div>
+
+        {/* Switch */}
+        <div className="mb-4 flex items-center">
+          <Switch
+            {...register('acceptMessages')}
+            checked={acceptMessages}
+            onCheckedChange={handleSwitchChange}
+            disabled={isSwitchLoading}
           />
-          <Button onClick={copyToClipboard}>Copy</Button>
+          <span className="ml-2">
+            Accept Messages: {acceptMessages ? 'On' : 'Off'}
+          </span>
+        </div>
+
+        <Separator />
+
+        {/* Refresh */}
+        <Button
+          className="mt-4"
+          variant="outline"
+          onClick={(e) => {
+            e.preventDefault();
+            fetchMessages(true);
+          }}
+        >
+          {isLoading ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <RefreshCcw className="h-4 w-4" />
+          )}
+        </Button>
+
+        {/* Messages */}
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+          {messages.length > 0 ? (
+            messages.map((message) => (
+              <MessageCard
+                key={message._id as string}
+                message={message}
+                onMessageDelete={handleDeleteMessage}
+              />
+            ))
+          ) : (
+            <p>No messages to display.</p>
+          )}
         </div>
       </div>
 
-      {/* Switch */}
-      <div className="mb-4 flex items-center">
-        <Switch
-          {...register('acceptMessages')}
-          checked={acceptMessages}
-          onCheckedChange={handleSwitchChange}
-          disabled={isSwitchLoading}
-        />
-        <span className="ml-2">
-          Accept Messages: {acceptMessages ? 'On' : 'Off'}
-        </span>
-      </div>
-
-      <Separator />
-
-      {/* Refresh */}
-      <Button
-        className="mt-4"
-        variant="outline"
-        onClick={(e) => {
-          e.preventDefault();
-          fetchMessages(true);
-        }}
-      >
-        {isLoading ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
-        ) : (
-          <RefreshCcw className="h-4 w-4" />
-        )}
-      </Button>
-
-      {/* Messages */}
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
-        {messages.length > 0 ? (
-          messages.map((message) => (
-            <MessageCard
-              key={message._id as string}
-              message={message}
-              onMessageDelete={handleDeleteMessage}
-            />
-          ))
-        ) : (
-          <p>No messages to display.</p>
-        )}
-      </div>
-    </div>
   );
 }
 
