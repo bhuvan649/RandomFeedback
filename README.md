@@ -49,10 +49,10 @@ npm run dev
 ### ⚙️ Environment Variables
 Rename .env.sample to .env and add your api keys:
 
-NEXTAUTH_SECRET="your-secret-key"
-MONGODB_URI="your-mongodb-uri"
-RESEND_API_KEY="your-resend-api-key"
-OPENAI_API_KEY="your-openai-api-key"
+1. NEXTAUTH_SECRET="your-secret-key"
+2. MONGODB_URI="your-mongodb-uri"
+3. RESEND_API_KEY="your-resend-api-key"
+4. OPENAI_API_KEY="your-openai-api-key"
 
 For reference, check the provided .env.sample.
 
