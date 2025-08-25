@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎯 Random Feedback
 
-## Getting Started
+A **Next.js 15** web application that allows registered users to receive **anonymous/random feedback** via a unique URL.  
+Built with **MongoDB, NextAuth, Resend (email verification), and OpenAI API** for suggested feedback messages.  
 
-First, run the development server:
+---
+
+## 🚀 Features
+
+- 🔑 **Authentication** with [NextAuth](https://next-auth.js.org/)  
+- 📧 **Email Verification** using [Resend](https://resend.com/)  
+- 🗄️ **Database** powered by [MongoDB + Mongoose](https://mongoosejs.com/)  
+- 📝 **Anonymous Feedback** – anyone with your unique link can send feedback **without logging in**  
+- 🎛️ **Control Feedback** – registered users can enable/disable receiving random feedback  
+- 🤖 **AI Suggestions** – integrated with OpenAI API to generate suggested feedback messages  
+- 🎨 **Modern UI** – built with Tailwind CSS v4, Radix UI, and animations  
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend & Backend**: [Next.js 15](https://nextjs.org/) (App Router)  
+- **Database**: [MongoDB](https://www.mongodb.com/) + [Mongoose](https://mongoosejs.com/)  
+- **Authentication**: [NextAuth.js](https://next-auth.js.org/)  
+- **Email Service**: [Resend](https://resend.com/)  
+- **AI Suggestions**: [OpenAI API](https://platform.openai.com/)  
+- **UI Components**: Tailwind CSS v4, Radix UI, Sonner  
+
+---
+
+## 📂 Project Setup
+
+Clone the repository:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/bhuvan649/RandomFeedback.git
+cd RandomFeedback
+```
+### Install dependencies:
+```bash
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Run the development server:
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### ⚙️ Environment Variables
+Rename .env.sample to .env and add your api keys:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+NEXTAUTH_SECRET="your-secret-key"
+MONGODB_URI="your-mongodb-uri"
+RESEND_API_KEY="your-resend-api-key"
+OPENAI_API_KEY="your-openai-api-key"
 
-## Learn More
+For reference, check the provided .env.sample.
 
-To learn more about Next.js, take a look at the following resources:
+### 🔑 Usage Flow
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Register with email → verification link is sent via Resend.
+2. After verification, you receive a unique URL.
+3. Share this link → others can send you random feedback (no login required).
+4. You can enable/disable feedback collection from your dashboard.
+5. Use AI-suggested messages (powered by OpenAI) to get better feedback responses.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 📸 Screenshots
+![Register Page](./public/screenshots/register.png)
+![Feedback Form](./public/screenshots/feedback.png)
+![Dashboard](./public/screenshots/dashboard.png)
 
-## Deploy on Vercel
+### 📬 Feedback & Contribution
+Contributions are welcome!
+If you’d like to add features or fix issues:
+```bash
+# create a new branch
+git checkout -b feature/your-feature-name
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# commit changes
+git commit -m "Added new feature"
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# push branch
+git push origin feature/your-feature-name
+```
+Then open a Pull Request 🚀
+
+### 📄 License
+This project is licensed under the MIT License – feel free to use and modify for your own projects.
+
+### ⭐ Support
+
+If you find this project helpful, don’t forget to star the repo on GitHub 🌟
+
