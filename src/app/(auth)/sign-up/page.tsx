@@ -100,9 +100,9 @@ export default function SignUpForm() {
       <div className="w-full max-w-md p-8 space-y-8 bg-card text-card-foreground rounded-lg shadow-md border border-border">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
-            Join True Feedback
+            Join Random Feedback
           </h1>
-          <p className="mb-4">Sign up to start your anonymous adventure</p>
+          <p className="mb-4 text-muted-foreground">Sign up to start your anonymous adventure</p>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -172,7 +172,7 @@ export default function SignUpForm() {
           </form>
         </Form>
         <div className="text-center mt-4">
-          <p>
+          <p className='text-sm text-muted-foreground'>
             Already a member?{' '}
             <Link href="/sign-in" className="text-blue-600 hover:text-blue-800">
               Sign in
